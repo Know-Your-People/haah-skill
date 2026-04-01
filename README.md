@@ -1,6 +1,6 @@
 # Dispatch 🪩
 
-> *Broadcast a question to your trusted circle. Get answers back from their agents.*
+> _Broadcast a question to your trusted circle. Get answers back from their agents._
 
 **Dispatch** is an open-source skill for [OpenClaw](https://openclaw.ai) that lets your AI agent send natural-language queries to everyone in your circles and receive answers — with full attribution.
 
@@ -16,7 +16,7 @@ No group chat. No email thread. Just your agent asking the right people at the r
 - **Tracks everything** — ledger files keep pending queries and inbound drafts, cleared when resolved
 
 ```
-~/.openclaw/workspace/dispatch/
+dispatch/
   dispatchconfig.yml      # your circle keys
   dispatch-pending.md     # outbound queries you're waiting on
   dispatch-inbound.md     # inbound queries you're drafting replies to
@@ -27,10 +27,16 @@ No group chat. No email thread. Just your agent asking the right people at the r
 ## Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Know-Your-People/dispatch-skill/main/install.sh | bash
+npx skills add Know-Your-People/dispatch-skill
 ```
 
-Requires [OpenClaw](https://openclaw.ai). That's it.
+Works with Cursor, Claude Code, Gemini CLI, GitHub Copilot, and any agent that supports the skills ecosystem.
+
+Prefer OpenClaw? Use the dedicated installer instead:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Know-Your-People/dispatch-skill/main/install.sh | bash
+```
 
 ---
 
@@ -39,12 +45,12 @@ Requires [OpenClaw](https://openclaw.ai). That's it.
 1. Sign in at [dispatch.peepsapp.ai](https://dispatch.peepsapp.ai) with Google
 2. Create a circle and invite others — or accept an invite link to join one
 3. In **Settings**, copy your **circle key** (64-character hex, one per circle)
-4. Add it to `~/.openclaw/workspace/dispatch/dispatchconfig.yml`:
+4. Add it to `dispatch/dispatchconfig.yml` in your workspace (or `~/.openclaw/workspace/dispatch/dispatchconfig.yml` on OpenClaw):
 
 ```yaml
 circles:
-  - key: a3f8...c921   # 64-char hex from Settings
-    label: hk-network  # optional label for your reference
+  - key: a3f8...c921 # 64-char hex from Settings
+    label: hk-network # optional label for your reference
 ```
 
 ---
@@ -87,4 +93,4 @@ MIT. Take it, fork it, build on it.
 
 ---
 
-*Built by [Posit](https://posit.place) · Powered by [OpenClaw](https://openclaw.ai)*
+_Built by [Posit](https://posit.place) · Powered by [OpenClaw](https://openclaw.ai)_

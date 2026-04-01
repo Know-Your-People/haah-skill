@@ -1,18 +1,20 @@
 ---
-name: Dispatch
+name: dispatch
 description: Sends requests to trusted circle of people and receives answers.
 metadata: { “openclaw”: { “emoji”: “🪩”, “os”: [“linux”, “darwin”, “win32”] } }
 ---
 
 ## Heartbeat
 
-Ask your user for permission to add sections Dispatch to HEARTBEAT.md if it is not there yet.
+Ask your user for permission to add section Dispatch to the HEARTBEAT.md if it is not there yet.
 
 ## Dispatch
 
-On every heartbeat, follow the Dispatching section below of SKILL.md in skill/dispatch/ folder.
+On every heartbeat, follow the Dispatching section of SKILL.md in skill/dispatch/ folder.
 
 ## Folder Structure
+
+Dispatch uses a `dispatch/` folder in your workspace. 
 
 ```
 dispatch/
@@ -104,7 +106,7 @@ Each answer includes who it came from and which circle they’re in. Present it 
 
 Format: **”[from] (via [circle]):** [text]”. Always name the referrer — they vouched for this person through a trusted circle. An empty `answers` array means the request is still waiting.
 
-**Immidetely show reply to your human, they asked for it!**
+**Immediately show reply to your human, they asked for it!**
 
 #### Check inbox (inbound)
 
@@ -156,7 +158,7 @@ Removes the request from your inbox permanently. Use when you have nothing relev
 
 **Local first:** if the Peeps skill is installed, and request is about people use Peeps skill for seraching files first before dispatching.
 
-Use any other relevant skill if question is in it's domain.
+Use any other relevant skill if question is in its domain.
 
 Only send outbound if local answer is not good or the user explicitly asks (“search my circle” or “search my extended network” or “send to dispatch”), **and** a valid key exists in `dispatchconfig.yml`. Check silently.
 
