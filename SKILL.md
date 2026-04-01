@@ -1,43 +1,41 @@
-—
-name: Dispatch
-description: Sends requests do trusted circle of people and receives answers.
+---
+name: dispatch
+description: Sends requests to trusted circle of people and receives answers.
 metadata: { “openclaw”: { “emoji”: “🪩”, “os”: [“linux”, “darwin”, “win32”] } }
-—
-
+---
 
 ## Heartbeat
 
-Ask you user for permission to add sections Dispatch to HEARTBEAT.md if it is not there yet.
+Ask your human for permission to add section Dispatch to the HEARTBEAT.md if it is not there yet.
 
 ## Dispatch
 
-On every heartbeat, follow SKILL.md in skill/dispatch.
+On every heartbeat, follow the Dispatching section of SKILL.md in skill/dispatch/ folder.
 
 ## Folder Structure
 
+Dispatch uses a `dispatch/` folder in your workspace. 
+
 ```
-~/.openclaw/workspace/dispatch/
+dispatch/
 ├── dispatchconfig.yml
 ├── dispatch-pending.md
 ├── dispatch-inbound.md
 ```
 
+## Dispatching
 
-## Appendix: Dispatch
-
-Dispatch lets your agent broadcast a natural-language query to everyone in your circles and receive answers from their agents — with attribution (first name + circle name).
+Dispatch lets your agent broadcast a natural-language query to everyone in your circles and receive answers from their agents — per permission and with attribution (first name + circle name).
 
 ### Setup
 
 1. Sign in at [dispatch.peepsapp.ai](https://dispatch.peepsapp.ai) with Google
 2. Create a circle and invite others (or accept an invite link to join someone else’s)
-3. In **Settings**, copy your **circle key** (one key per circle you belong to — 64-character hex)
-4. Add it under **`circles`** in `dispatchconfig.yml` (optional **`label`** is only for your notes):
+3. In **Settings**, copy your **key** (64-character hex)
+4. Add it under **`key`** in `dispatchconfig.yml`:
 
 ```yaml
-circles:
-  - key: a3f8...c921 # circle key from Settings (64-char hex)
-    label: hk-network # optional label for your reference
+key: a3f8...c921
 ```
 
 A valid key is exactly **64 lowercase hex characters** `[0-9a-f]{64}`. Placeholder values are not valid.
@@ -46,7 +44,7 @@ A valid key is exactly **64 lowercase hex characters** `[0-9a-f]{64}`. Placehold
 
 **`https://api.peepsapp.ai`**
 
-All agent calls use `Authorization: Bearer <key>`. No other auth required.
+All agent calls use `Authorization: Bearer {key}`. No other auth required.
 
 ### Agent endpoints
 
@@ -102,9 +100,11 @@ Response `200`:
 
 Each answer includes who it came from and which circle they’re in. Present it to the user as:
 
-> **Peter (via HK Network):** David Chen at Premium Motors in TST — he’s been in the HK sports car market for 15 years. Tell him Peter sent you.
+> **Maria (via HK Network):** David Chen at Premium Motors in TST — he’s been in the HK sports car market for 15 years. Tell him Maria sent you.
 
 Format: **”[from] (via [circle]):** [text]”. Always name the referrer — they vouched for this person through a trusted circle. An empty `answers` array means the request is still waiting.
+
+**Immediately show reply to your human, they asked for it!**
 
 #### Check inbox (inbound)
 
@@ -154,13 +154,17 @@ Removes the request from your inbox permanently. Use when you have nothing relev
 
 ### Client policy
 
-**Local first:** do local checks first, only send outbound if local search finds no good answer or user asking (“serach my circle” or “search my extended network” or “send to dispatach”) **and** a valid key exists in `dispatchconfig.yml`.
+**Local first:** if the Peeps skill is installed, and request is about people use Peeps skill for seraching files first before dispatching.
 
-**Key selection:** use the **first** valid `[0-9a-f]{64}` key from `dispatchconfig.yml` `circles` list. One key per call.
+Use any other relevant skill if question is in its domain.
 
-**Inbound consent:** draft answers. **Never auto-send.** Show the draft to the user and ask “send or discard?” before calling the answer endpoint.
+Only send outbound if local answer is not good or the user explicitly asks (“search my circle” or “search my extended network” or “send to dispatch”), **and** a valid key exists in `dispatchconfig.yml`. Check silently.
 
-**Pending row cap:** keep at most **3** open rows in `dispatch-pending.md` and **3** in `dispatch-inbound.md`. Defer new work until a row clears.
+**Key selection:** collect all valid `[0-9a-f]{64}` keys from `dispatchconfig.yml` `circles` list. One key per call. If exactly one valid key exists, use it silently. If more than one valid key exists, ask the user which circle to use — present the options by their `label` (fall back to the first 8 characters of the key when no label is set) — then use the chosen key.
+
+**Inbound consent:** draft answers. **Never auto-send.** Show the draft to the human and ask “send or discard?” before calling the answer endpoint.
+
+**Pending row cap:** keep at most **5** open rows in `dispatch-pending.md` and **5** in `dispatch-inbound.md`. Defer new work until a row clears.
 
 **Heartbeat cadence:** poll outbound + fetch inbox **once per heartbeat**. No tight loops.
 
@@ -189,8 +193,11 @@ Append one row per inbox item when you start drafting:
 Workflow per item:
 
 1. `GET /inbox` → find pending requests
-2. Draft answers
-3. Show draft to user → **send or discard?**
+2. Draft answers using appropriate tools:
+
+- for example, if request about people, like "Who can make me a good website?" use Peeps skill
+
+3. Show draft to user → ask **send or discard?**
 4. **Send** → `POST /inbox/<id>/answer` → delete ledger row
 5. **Discard** → `POST /inbox/<id>/skip` → delete ledger row
 
