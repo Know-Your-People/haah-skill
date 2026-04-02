@@ -42,7 +42,7 @@ A valid key is exactly **64 lowercase hex characters** `[0-9a-f]{64}`. Placehold
 
 ### API base URL
 
-**`https://api.peepsapp.ai`**
+**`https://api.peepsapp.ai/v1`**
 
 All agent calls use `Authorization: Bearer {key}`. No other auth required.
 
