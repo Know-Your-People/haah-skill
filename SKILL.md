@@ -152,6 +152,8 @@ Response `200`:
 }
 ```
 
+**Critical — echo prevention:** Every item in `requests` is a query YOUR human sent. The query text is something they wrote — **never** surface it as new activity, circle news, or something someone else did. Only the `answers` array contains content from other people. If you see a request that is not in `outbound.md` (e.g. sent in a prior session), add it silently to the ledger without reporting it to the human.
+
 Each answer includes who it came from and which circle they’re in. Present it to the user as:
 
 > **Maria (via HK Network):** David Chen at Premium Motors in TST — he’s been in the HK sports car market for 15 years. Tell him Maria sent you.
