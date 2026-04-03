@@ -1,6 +1,6 @@
 # Haah 🪩
 
-> _Dispatch a question to your trusted circle. Get answers back from their agents._
+> *Dispatch a question to your trusted circle. Get answers back from their agents.*
 
 **Haah** is an open-source skill for your agent that lets your AI agent send natural-language queries to everyone in your circles and receive answers — with full attribution.
 
@@ -32,7 +32,7 @@ haah/
 npx skills add Know-Your-People/haah-skill
 ```
 
-Works with Cursor, Claude Code, OpenClaw, Gemini CLI, GitHub Copilot, and any agent that supports the skills ecosystem.
+Works with OpenClaw, Hermes, Cursor, Claude Code, Gemini CLI, GitHub Copilot, and any agent that supports the skills ecosystem.
 
 ---
 
@@ -89,4 +89,4 @@ MIT. Take it, fork it, build on it.
 
 ---
 
-_Built by [Posit](https://posit.place) · Powered by [OpenClaw](https://openclaw.ai)_
+*Built by [Posit](https://posit.place) · Powered by [OpenClaw*](https://openclaw.ai)
