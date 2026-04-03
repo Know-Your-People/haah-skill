@@ -5,11 +5,11 @@ set -euo pipefail
 # - Always overwrite SKILL.md from main (users get upstream behavior; re-run to update).
 # - Never overwrite local config or ledger files — only create missing defaults.
 
-SKILL_REPO="git@github.com:Know-Your-People/dispatch-skill.git"
-SKILL_WEB="https://github.com/Know-Your-People/dispatch-skill"
-SKILL_RAW="https://raw.githubusercontent.com/Know-Your-People/dispatch-skill/main"
-SKILLS_DIR="${HOME}/.openclaw/workspace/skills/dispatch"
-DISPATCH_DIR="${HOME}/.openclaw/workspace/dispatch"
+SKILL_REPO="git@github.com:Know-Your-People/haah-skill.git"
+SKILL_WEB="https://github.com/Know-Your-People/haah-skill"
+SKILL_RAW="https://raw.githubusercontent.com/Know-Your-People/haah-skill/main"
+SKILLS_DIR="${HOME}/.openclaw/workspace/skills/haah"
+HAAH_DIR="${HOME}/.openclaw/workspace/haah"
 
 GREEN=$'\033[0;32m'
 YELLOW=$'\033[1;33m'
@@ -22,12 +22,12 @@ link() {
 }
 
 echo ""
-echo -e "${GREEN}  ██████╗ ██╗███████╗██████╗  █████╗ ████████╗ ██████╗██╗  ██╗${NC}"
-echo -e "${GREEN}  ██╔══██╗██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║  ██║${NC}"
-echo -e "${GREEN}  ██║  ██║██║███████╗██████╔╝███████║   ██║   ██║     ███████║${NC}"
-echo -e "${GREEN}  ██║  ██║██║╚════██║██╔═══╝ ██╔══██║   ██║   ██║     ██╔══██║${NC}"
-echo -e "${GREEN}  ██████╔╝██║███████║██║     ██║  ██║   ██║   ╚██████╗██║  ██║${NC}"
-echo -e "${GREEN}  ╚═════╝ ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝${NC}"
+echo -e "${GREEN}  ██╗  ██╗ █████╗  █████╗ ██╗  ██╗${NC}"
+echo -e "${GREEN}  ██║  ██║██╔══██╗██╔══██╗██║  ██║${NC}"
+echo -e "${GREEN}  ███████║███████║███████║███████║${NC}"
+echo -e "${GREEN}  ██╔══██║██╔══██║██╔══██║██╔══██║${NC}"
+echo -e "${GREEN}  ██║  ██║██║  ██║██║  ██║██║  ██║${NC}"
+echo -e "${GREEN}  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝${NC}"
 echo ""
 echo "  Broadcast a question to your trusted circle. Get answers back."
 echo "  ──────────────────────────────────────────"
@@ -53,42 +53,42 @@ curl -fsSL "${SKILL_RAW}/SKILL.md" -o "${SKILLS_DIR}/SKILL.md"
 echo -e "${GREEN}✓ Skill installed to ${SKILLS_DIR}${NC}"
 
 # Create workspace directory
-if [ ! -d "$DISPATCH_DIR" ]; then
-  mkdir -p "$DISPATCH_DIR"
-  echo -e "${GREEN}✓ Created ${DISPATCH_DIR}${NC}"
+if [ ! -d "$HAAH_DIR" ]; then
+  mkdir -p "$HAAH_DIR"
+  echo -e "${GREEN}✓ Created ${HAAH_DIR}${NC}"
 else
-  echo -e "${GREEN}✓ ${DISPATCH_DIR} already exists${NC}"
+  echo -e "${GREEN}✓ ${HAAH_DIR} already exists${NC}"
 fi
 
 # Migrate legacy ledger filenames (outbound.md / inbound.md are the canonical names)
-if [ -f "${DISPATCH_DIR}/dispatch-pending.md" ] && [ ! -f "${DISPATCH_DIR}/outbound.md" ]; then
-  mv "${DISPATCH_DIR}/dispatch-pending.md" "${DISPATCH_DIR}/outbound.md"
-  echo -e "${GREEN}✓ Renamed dispatch-pending.md → outbound.md${NC}"
+if [ -f "${HAAH_DIR}/haah-pending.md" ] && [ ! -f "${HAAH_DIR}/outbound.md" ]; then
+  mv "${HAAH_DIR}/haah-pending.md" "${HAAH_DIR}/outbound.md"
+  echo -e "${GREEN}✓ Renamed haah-pending.md → outbound.md${NC}"
 fi
-if [ -f "${DISPATCH_DIR}/dispatch-inbound.md" ] && [ ! -f "${DISPATCH_DIR}/inbound.md" ]; then
-  mv "${DISPATCH_DIR}/dispatch-inbound.md" "${DISPATCH_DIR}/inbound.md"
-  echo -e "${GREEN}✓ Renamed dispatch-inbound.md → inbound.md${NC}"
+if [ -f "${HAAH_DIR}/haah-inbound.md" ] && [ ! -f "${HAAH_DIR}/inbound.md" ]; then
+  mv "${HAAH_DIR}/haah-inbound.md" "${HAAH_DIR}/inbound.md"
+  echo -e "${GREEN}✓ Renamed haah-inbound.md → inbound.md${NC}"
 fi
 
 # Create empty ledger files only if missing — never overwrite user content
 for ledger in "outbound.md" "inbound.md"; do
-  LEDGER_FILE="${DISPATCH_DIR}/${ledger}"
+  LEDGER_FILE="${HAAH_DIR}/${ledger}"
   if [ ! -f "$LEDGER_FILE" ]; then
     touch "$LEDGER_FILE"
     echo -e "${GREEN}✓ Created ${LEDGER_FILE}${NC}"
   fi
 done
 
-# Create dispatchconfig.yml only if missing — never overwrite existing keys/settings
-CONFIG_FILE="${DISPATCH_DIR}/dispatchconfig.yml"
+# Create haahconfig.yml only if missing — never overwrite existing keys/settings
+CONFIG_FILE="${HAAH_DIR}/haahconfig.yml"
 if [ ! -f "$CONFIG_FILE" ]; then
   echo ""
   echo "  ──────────────────────────────────────────"
-  echo -e "  ${BOLD}Register for Dispatch:${NC}"
+  echo -e "  ${BOLD}Register for Haah:${NC}"
   echo ""
-  echo "  To activate Dispatch, register your account at:"
+  echo "  To activate Haah, register your account at:"
   echo ""
-  echo "    $(link 'https://dispatch.peepsapp.ai')"
+  echo "    $(link 'https://haah.peepsapp.ai')"
   echo ""
   echo "  Once registered, grab your key from Settings."
   echo "  A valid key is 64 lowercase hex characters. Press Enter to skip for now."
@@ -120,6 +120,6 @@ echo '  "Search my circle — who knows a good architect in Singapore?"'
 echo '  "Ask my network if anyone can help with fundraising in London."'
 echo '  "Check if there are any new answers to my open questions."'
 echo ""
-echo "  Sign in and manage circles: $(link 'https://dispatch.peepsapp.ai')"
+echo "  Sign in and manage circles: $(link 'https://haah.peepsapp.ai')"
 echo "  Source: $(link "$SKILL_WEB" "$SKILL_REPO")"
 echo ""

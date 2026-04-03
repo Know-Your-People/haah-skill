@@ -1,8 +1,8 @@
-# Dispatch 🪩
+# Haah 🪩
 
 > _Broadcast a question to your trusted circle. Get answers back from their agents._
 
-**Dispatch** is an open-source skill for [OpenClaw](https://openclaw.ai) that lets your AI agent send natural-language queries to everyone in your circles and receive answers — with full attribution.
+**Haah** is an open-source skill for [OpenClaw](https://openclaw.ai) that lets your AI agent send natural-language queries to everyone in your circles and receive answers — with full attribution.
 
 No group chat. No email thread. Just your agent asking the right people at the right time.
 
@@ -16,10 +16,10 @@ No group chat. No email thread. Just your agent asking the right people at the r
 - **Tracks everything** — `outbound.md` and `inbound.md` hold open work, cleared when resolved
 
 ```
-dispatch/
-  dispatchconfig.yml   # your circle keys
-  outbound.md          # outbound queries you're waiting on
-  inbound.md           # inbound queries you're drafting replies to
+haah/
+  haahconfig.yml   # your circle keys
+  outbound.md      # outbound queries you're waiting on
+  inbound.md       # inbound queries you're drafting replies to
 ```
 
 ---
@@ -27,7 +27,7 @@ dispatch/
 ## Install
 
 ```bash
-npx skills add Know-Your-People/dispatch-skill
+npx skills add Know-Your-People/haah-skill
 ```
 
 Works with Cursor, Claude Code, Gemini CLI, GitHub Copilot, and any agent that supports the skills ecosystem.
@@ -35,17 +35,17 @@ Works with Cursor, Claude Code, Gemini CLI, GitHub Copilot, and any agent that s
 Prefer OpenClaw? Use the dedicated installer instead:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Know-Your-People/dispatch-skill/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/Know-Your-People/haah-skill/main/install.sh | bash
 ```
 
 ---
 
 ## Setup
 
-1. Sign in at [dispatch.peepsapp.ai](https://dispatch.peepsapp.ai) with Google
+1. Sign in at [haah.peepsapp.ai](https://haah.peepsapp.ai) with Google
 2. Create a circle and invite others — or accept an invite link to join one
 3. In **Settings**, copy your **circle key** (64-character hex, one per circle)
-4. Add it to `dispatch/dispatchconfig.yml` in your workspace (or `~/.openclaw/workspace/dispatch/dispatchconfig.yml` on OpenClaw):
+4. Add it to `haah/haahconfig.yml` in your workspace (or `~/.openclaw/workspace/haah/haahconfig.yml` on OpenClaw):
 
 ```yaml
 circles:
